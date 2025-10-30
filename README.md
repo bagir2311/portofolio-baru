@@ -3,6 +3,7 @@ Nim : 623C0012
 intruksi singkat : cd portofolio-baru lalu npm start -C
 Berikut adalah screenshot dari halaman utama aplikasi:
 
+
 1. Halaman profil  
    ![Screenshot 1](/assets/ss1.png)
 
