@@ -23,6 +23,9 @@ const TEXTS = {
     desc: "Developer React Native yang suka membangun aplikasi interaktif dan desain bersih.",
     project: "Lihat Proyek",
     about: "Tentang Saya",
+    contact: "Hubungi Saya",
+    skills: "Keahlian",
+    blog: "Blog Saya",
     switch: "Ganti ke Bahasa Inggris",
   },
   en: {
@@ -30,6 +33,9 @@ const TEXTS = {
     desc: "React Native developer who loves building interactive apps with clean design.",
     project: "View Projects",
     about: "About Me",
+    contact: "Contact Me",
+    skills: "Skills",
+    blog: "My Blog",
     switch: "Switch to Bahasa Indonesia",
   },
 };
@@ -46,14 +52,10 @@ export default function HomeScreen(): React.ReactElement {
     setLanguage((prev) => (prev === "id" ? "en" : "id"));
   };
 
-  // Theme colors
   const bg = isDark ? "#0F172A" : "#F8FAFC";
   const textPrimary = isDark ? "#F8FAFC" : "#0F172A";
   const textSecondary = isDark ? "#94A3B8" : "#64748B";
-  const accentBlue = "#3B82F6";
-  const accentAmber = "#F59E0B";
 
-  // ─── Animasi ─────────────────────────────────────────────
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(30)).current;
 
@@ -102,17 +104,30 @@ export default function HomeScreen(): React.ReactElement {
       </Animated.Text>
 
       <Animated.View style={[styles.buttonGroup, animatedStyle]}>
-        <CustomButton
+        <MenuButton
           title={t.project}
           onPress={() => navigation.navigate("Projects", { language })}
-          backgroundColor={accentBlue}
-          textColor="#FFFFFF"
+          backgroundColor="#3B82F6"
         />
-        <CustomButton
+        <MenuButton
           title={t.about}
           onPress={() => navigation.navigate("About", { language })}
-          backgroundColor={accentAmber}
-          textColor="#FFFFFF"
+          backgroundColor="#F59E0B"
+        />
+        <MenuButton
+          title={t.contact}
+          onPress={() => navigation.navigate("Contact", { language })}
+          backgroundColor="#10B981"
+        />
+        <MenuButton
+          title={t.skills}
+          onPress={() => navigation.navigate("Skills", { language })}
+          backgroundColor="#6366F1"
+        />
+        <MenuButton
+          title={t.blog}
+          onPress={() => navigation.navigate("Blog", { language })}
+          backgroundColor="#F43F5E"
         />
       </Animated.View>
 
@@ -125,26 +140,22 @@ export default function HomeScreen(): React.ReactElement {
   );
 }
 
-// ─── CUSTOM BUTTON COMPONENT ───────────────────────────────────
-const CustomButton = ({
+// ─── MENU BUTTON COMPONENT ───────────────────────────────────
+const MenuButton = ({
   title,
   onPress,
   backgroundColor,
-  textColor,
 }: {
   title: string;
   onPress: () => void;
   backgroundColor: string;
-  textColor: string;
 }) => (
   <TouchableOpacity
     onPress={onPress}
     activeOpacity={0.8}
-    style={[styles.customButton, { backgroundColor }]}
+    style={[styles.menuButton, { backgroundColor }]}
   >
-    <Text style={[styles.buttonText, { color: textColor }]}>
-      {title}
-    </Text>
+    <Text style={styles.menuText}>{title}</Text>
   </TouchableOpacity>
 );
 
@@ -200,18 +211,20 @@ const styles = StyleSheet.create({
   buttonGroup: {
     width: "100%",
     alignItems: "center",
-    gap: 16,
+    gap: 12,
   },
-  customButton: {
+  menuButton: {
     width: "85%",
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: 8,
   },
-  buttonText: {
+  menuText: {
     fontSize: 17,
     fontWeight: "600",
+    color: "#FFFFFF",
   },
   langToggle: {
     marginTop: 16,
